@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+    <style>
+        .data {
+            margin-top: 12px;
+        }
+
+        a {
+            margin: 4px 8px;
+        }
+
+        .human-name {
+            margin-left: 8px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        <input type="text" placeholder="ID Группы" name="group_id">
+        <div>Например, для группы с по адресу <i>https://vk.com/h6_nstu</i> id=<b>h6_nstu</b></div>
+        <button type="submit">Спарсить</button>
+    </form>
+
+    <div class="data">
+        {% if not is_success %}
+            {{ data }}
+        {% else %}
+            {% for human in data %}
+                <div>
+                    <a href="https://vk.com/{{ human.vk_id }}">VK</a>
+                    <a href="https://www.instagram.com/{{ human.ig_name }}">IG</a>
+                    <span class="human-name">{{ human.last_name }} {{ human.first_name }}</span>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
